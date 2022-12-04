@@ -9,6 +9,10 @@ from datetime import timedelta
 
 CLEANR = re.compile('<.*?>')
 
+if(os.environ.get('secret')==None):
+    raise Exception("Environment Variables are Not Set")
+else:
+    print("All is well")
 
 def cleanhtml(raw_html):
     cleantext = re.sub(CLEANR, '', raw_html)

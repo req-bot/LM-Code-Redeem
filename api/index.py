@@ -61,22 +61,26 @@ def login():
         user = User()
         user.id = email
         flask_login.login_user(user)
-        # return redirect(url_for('protected'))
-        return redirect("/", code=302)
+        return redirect(url_for('protected'))
+        # return redirect("/", code=302)
 
-    return 'Bad login'
+    return """<script>alert('Bad Login');window.location.replace("/");</script>"""
 
 
 @app.route('/protected')
 @flask_login.login_required
 def protected():
-	return """<script>alert('Logged in as: {0}');window.location.replace("/");</script>""".format(flask_login.current_user.id)
+    its_id=flask_login.current_user.id
+    print("User Logged In Successfully..!!!")
+    return """<script>alert('Logged in as: {0}');window.location.replace("/");</script>""".format(its_id)
 
 
 @app.route('/logout')
 def logout():
+    its_id=flask_login.current_user.id
+    print("User Logged Out Successfully..!!!")
     flask_login.logout_user()
-    return 'Logged out'
+    return """<script>alert('Logged out of: {0}');window.location.replace("/login");</script>""".format(its_id)
 
 
 @login_manager.unauthorized_handler
@@ -88,7 +92,15 @@ def unauthorized_handler():
 data = dict()
 codes = []
 old_code = ""
-kk = [os.environ.get('sheet1'),os.environ.get('sheet2')]
+pi=1
+kk=[]
+while(os.environ.get('sheet'+str(pi))!=None):
+    kk.append(os.environ.get('sheet'+str(pi)))
+    pi=pi+1
+
+print("Data Feeded Successfully...")
+
+# kk = [os.environ.get('sheet1'),os.environ.get('sheet2')]
 for i in range(len(kk)):
     data[str(i+1)] = dict()
 

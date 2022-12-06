@@ -62,7 +62,7 @@ def login():
         user.id = email
         flask_login.login_user(user)
 #         return redirect(url_for('protected'))
-	redirect("/", code=302)
+	return redirect("/", code=302)
 
     return 'Bad login'
 

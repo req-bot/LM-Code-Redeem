@@ -301,7 +301,8 @@
     <h2 class="codemsg">Add Redeem Code Here</h2>
     <div class="container">
         <div class="container__item">
-            <form class="form" method="post" id="todo-form" onsubmit="getdata()">
+            <!-- <form class="form" method="post" id="todo-form" onsubmit="getdata()"> -->
+            <form class="form" method="post" id="todo-form" onsubmit="yourFunction()">
                 <input type="text" name="todo" id="todo" class="form__field uppercase" placeholder="Enter Gift Code"
                     required>
                 <button type="submit" class="btn btn--primary btn--inside uppercase">Redeem</button>
@@ -382,11 +383,11 @@
                     divShowData.innerHTML = "";
                     divShowData.appendChild(table);
                 });
-            // setTimeout(yourFunction, 2000);
+            setTimeout(yourFunction, 6000);
         }
-        function getdata() {
-            setTimeout(function () { yourFunction(); }, 6000);
-        }
+        // function getdata() {
+        //     setTimeout(function () { yourFunction(); }, 6000);
+        // }
     </script>
 </body>
 

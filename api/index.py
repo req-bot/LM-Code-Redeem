@@ -161,15 +161,19 @@ def home():
 @app.route("/result", methods=["POST", "GET"])
 @flask_login.login_required
 def result():
-    tmpd = dict()
-    global data, old_code
-    sheetno = request.args.get('sheetno')
-    l = []
-    for v in data[str(sheetno)][old_code]:
-        l.append(data[str(sheetno)][old_code][v])
-    tmpd["code"] = old_code
-    tmpd["rdata"] = l
-    return jsonify(tmpd)
+    try:
+        tmpd = dict()
+        global data, old_code
+        sheetno = request.args.get('sheetno')
+        l = []
+        for v in data[str(sheetno)][old_code]:
+            l.append(data[str(sheetno)][old_code][v])
+        tmpd["code"] = old_code
+        tmpd["rdata"] = l
+        return jsonify(tmpd)
+    except Exception as e:
+        print(e)
+        return "{0}",format(e)
 
 
 # latest code result only respect to sheet

@@ -23,7 +23,7 @@ app.secret_key = os.environ.get('secret')
 app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=120)
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
-users = {'test@code': {'password': 'test'}}
+users = eval(os.environ.get('secret'))
 
 
 class User(flask_login.UserMixin):

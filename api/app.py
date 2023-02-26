@@ -72,7 +72,9 @@ def login():
 @app.route('/protected')
 @flask_login.login_required
 def protected():
+    global curr_acc
     its_id=flask_login.current_user.id
+    curr_acc=its_id
     print("User Logged In Successfully..!!!")
     return """<script>alert('Logged in as: {0}');window.location.replace("/");</script>""".format(its_id)
 

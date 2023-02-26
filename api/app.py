@@ -8,6 +8,8 @@ import pandas as pd
 from datetime import timedelta
 
 CLEANR = re.compile('<.*?>')
+curr_acc=""
+acc_data=dict()
 
 if(os.environ.get('secret')==None):
     raise Exception("Environment Variables are Not Set")
@@ -105,7 +107,7 @@ for i in range(len(kk)):
     data[str(i+1)] = dict()
 
 
-def sub_redeem(cid, name, code, sheetno):
+def sub_redeem(cid, name, acc_mail, code, sheetno):
     # print(cid,name,sheetno)
     URL = 'https://lordsmobile.igg.com/project/gifts/ajax.php?game_id=1051029902'
     payload = {
@@ -123,6 +125,8 @@ def sub_redeem(cid, name, code, sheetno):
     # print(code,name,cid,finalme,sheetno)
     data[str(sheetno)][code][name] = {
         "Game Name": name, "Game ID": cid, "Gifts/Message": finalme}
+    if(acc_mail==curr_acc):
+        acc_data[name]={"Game Name": name, "Gifts/Message": finalme}
 
 
 def redeem(code):
@@ -132,10 +136,11 @@ def redeem(code):
         dataf = pd.read_csv(kk[j])
         temp = list(dataf['ID'])
         names = list(dataf['Game Name'])
+        acc_mail=list(dataf['WebID'])
         c = len(temp)
         for i in range(1, c + 1):
             background_thread = Thread(target=sub_redeem, args=(
-                temp[i-1], names[i-1], code, j+1))
+                temp[i-1], names[i-1],acc_mail[i-1], code, j+1))
             background_thread.start()
     # return redirect("http://127.0.0.1:5000/sheet-results?sheetno=1", code=302)
 
@@ -175,6 +180,21 @@ def result():
         print(e)
         return "{0}",format(e)
 
+@app.route("/gifts", methods=["POST", "GET"])
+@flask_login.login_required
+def gifts():
+    global old_code
+    its_tmp=dict()
+    try:
+        l = []
+        for v in acc_data:
+            l.append(acc_data[v])
+        its_tmp["code"]=old_code
+        its_tmp["rdata"] = l
+        return jsonify(its_tmp)
+    except Exception as e:
+        print(e)
+        return "{0}",format(str(e))
 
 # latest code result only respect to sheet
 @app.route("/sheet-results", methods=["POST", "GET"])

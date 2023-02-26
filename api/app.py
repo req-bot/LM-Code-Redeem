@@ -153,6 +153,8 @@ def redeem(code):
 @app.route("/", methods=["POST", "GET"])
 @flask_login.login_required
 def home():
+    global curr_acc
+    curr_acc=flask_login.current_user.id
     global old_code
     if request.method == "POST":
         code = request.form.get("todo")

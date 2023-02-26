@@ -108,6 +108,7 @@ for i in range(len(kk)):
 
 
 def sub_redeem(cid, name, acc_mail, code, sheetno):
+    global acc_data
     # print(cid,name,sheetno)
     URL = 'https://lordsmobile.igg.com/project/gifts/ajax.php?game_id=1051029902'
     payload = {
@@ -125,13 +126,14 @@ def sub_redeem(cid, name, acc_mail, code, sheetno):
     # print(code,name,cid,finalme,sheetno)
     data[str(sheetno)][code][name] = {
         "Game Name": name, "Game ID": cid, "Gifts/Message": finalme}
-    print(curr_acc,acc_mail)
     if(acc_mail==curr_acc):
         acc_data[name]={"Game Name": name, "Gifts/Message": finalme}
 
 
 def redeem(code):
     codes.append(code)
+    global acc_data
+    acc_data=dict()
     for j in range(len(kk)):
         data[str(j+1)][code] = dict()
         dataf = pd.read_csv(kk[j])

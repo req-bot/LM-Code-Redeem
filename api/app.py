@@ -125,6 +125,7 @@ def sub_redeem(cid, name, acc_mail, code, sheetno):
     # print(code,name,cid,finalme,sheetno)
     data[str(sheetno)][code][name] = {
         "Game Name": name, "Game ID": cid, "Gifts/Message": finalme}
+    print(curr_acc,acc_mail)
     if(acc_mail==curr_acc):
         acc_data[name]={"Game Name": name, "Gifts/Message": finalme}
 

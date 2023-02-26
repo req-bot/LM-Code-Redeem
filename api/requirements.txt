@@ -2,3 +2,4 @@ Flask
 flask_login
 requests
 pandas
+gunicorn

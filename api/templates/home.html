@@ -401,8 +401,9 @@
         function trigger() {
             fetch('https://lm-code-redeem.onrender.com/awake')
                 .then(res =>  alertify.success('Yes I Am Awake...'))
-                .then((response) => {
-                    console.log(response)
+                .then(res => res.text())
+                .then((res) => {
+                    console.log(res)
                 })
                 .catch(err =>  alertify.warning('Sorry I Fell Asleep'))
             }

@@ -283,6 +283,7 @@
             display: inline;
         }
     </style>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 </head>
 
 <body>
@@ -396,18 +397,14 @@
              } (1));
         }
     </script>
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script>
-        function trigger() {
-            fetch('https://lm-code-redeem.onrender.com/awake')
+        function FetchData() {
+                fetch('/awake')
+                .then(x => console.log(x.text()))
                 .then(res =>  alertify.success('Yes I Am Awake...'))
-                .then(res => res.text())
-                .then((res) => {
-                    console.log(res)
-                })
                 .catch(err =>  alertify.warning('Sorry I Fell Asleep'))
             }
-            setTimeout( function() { trigger(); }, 1000);
+            setInterval(FetchData, 1000);
     </script>
 </body>
 

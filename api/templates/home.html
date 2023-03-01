@@ -413,7 +413,7 @@
         function FetchData() {
             fetch('/awake')
                 .then(x => console.log(x.text()))
-                .then(res => alertify.success('Yes I Am Awake...'))
+                .then(res => alertify.success('Are You Still There?'))
                 .catch(err => alertify.warning('Sorry I Fell Asleep'))
         }
         setInterval(FetchData, 1000);

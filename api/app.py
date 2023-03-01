@@ -263,6 +263,9 @@ def codefromrequest():
     background_thread.start()
     return "code added to task successfully"
 
+@app.route("/awake", methods=["POST", "GET"])
+def awake():
+    return "Yes I Am On..!!!"
 
 if __name__ == '__main__':
     app.run(debug=True)

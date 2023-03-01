@@ -80,7 +80,7 @@ def redirected_login():
         user = User()
         user.id = email
         flask_login.login_user(user,remember=True)
-        return redirect(url_for('/'))
+        return redirect(url_for('protected'))
     return """<script>alert('Validation Failed');window.location.replace("https://req-bot.github.io/Validator/");</script>"""
 
 @app.route('/protected')

@@ -71,8 +71,8 @@ def login():
 @app.route("/redirected-login", methods=["POST", "GET"])
 @flask_login.login_required
 def redirected_login():
-    if request.method == 'GET':
-        return """<script>alert('Restricted Access');window.location.replace("https://req-bot.github.io/Validator/");</script>"""
+#     if request.method == 'GET':
+#         return """<script>alert('Restricted Access');window.location.replace("https://req-bot.github.io/Validator/");</script>"""
     
     email = request.args.get('email')
     password = request.args.get('password')

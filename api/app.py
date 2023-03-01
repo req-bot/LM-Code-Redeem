@@ -97,13 +97,13 @@ def logout():
     its_id=flask_login.current_user.id
     print("User Logged Out Successfully..!!!")
     flask_login.logout_user()
-    return """<script>alert('Logged out of: {0}');window.location.replace("/login");</script>""".format(its_id)
+    return """<script>alert('Logged out of: {0}');window.location.replace("/https://req-bot.github.io/Validator/");</script>""".format(its_id)
 
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     # return 'Unauthorized', 401
-    return redirect("/login", code=302)
+    return redirect("/https://req-bot.github.io/Validator/", code=302)
 
 
 data = dict()

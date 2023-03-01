@@ -6,8 +6,21 @@
     <!-- <meta http-equiv="refresh" content="800"> -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFPLKMicv1lSDv-jU70q9aMk3NqD4tstNi5Q&usqp=CAU">
+    <link rel="icon"
+        href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFPLKMicv1lSDv-jU70q9aMk3NqD4tstNi5Q&usqp=CAU">
     <title>Redeem Lords Mobile Gift Code</title>
+    <!-- JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+
     <style>
         :root {
             font: "PT Sans", sans-serif;
@@ -283,7 +296,6 @@
             display: inline;
         }
     </style>
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 </head>
 
 <body>
@@ -305,7 +317,7 @@
     <div class="container">
         <div class="container__item">
             <form class="form" method="post" id="todo-form" onsubmit="getdata()">
-            <!-- <form class="form" method="post" id="todo-form" onsubmit="yourFunction()"> -->
+                <!-- <form class="form" method="post" id="todo-form" onsubmit="yourFunction()"> -->
                 <input type="text" name="todo" id="todo" class="form__field uppercase" placeholder="Enter Gift Code"
                     required>
                 <button type="submit" class="btn btn--primary btn--inside uppercase">Redeem</button>
@@ -390,21 +402,21 @@
         }
         function getdata() {
             // setTimeout(function () { yourFunction(); }, 6000);
-            (function fiveSeconds (n) {
+            (function fiveSeconds(n) {
                 yourFunction();
-                console.log( n );
-                if (n <= 5) setTimeout( fiveSeconds, 1000, n+1 );
-             } (1));
+                console.log(n);
+                if (n <= 5) setTimeout(fiveSeconds, 1000, n + 1);
+            }(1));
         }
     </script>
     <script>
         function FetchData() {
-                fetch('/awake')
+            fetch('/awake')
                 .then(x => console.log(x.text()))
-                .then(res =>  alertify.success('Yes I Am Awake...'))
-                .catch(err =>  alertify.warning('Sorry I Fell Asleep'))
-            }
-            setInterval(FetchData, 1000);
+                .then(res => alertify.success('Yes I Am Awake...'))
+                .catch(err => alertify.warning('Sorry I Fell Asleep'))
+        }
+        setInterval(FetchData, 1000);
     </script>
 </body>
 

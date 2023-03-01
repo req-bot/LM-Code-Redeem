@@ -68,6 +68,20 @@ def login():
 
     return """<script>alert('Bad Login');window.location.replace("/");</script>"""
 
+@app.route("/redirected-login", methods=["POST", "GET"])
+@flask_login.login_required
+def redirected_login():
+    if request.method == 'GET':
+        return """<script>alert('Restricted Access');window.location.replace("https://req-bot.github.io/Validator/");</script>"""
+    
+    email = request.args.get('email')
+    password = request.args.get('password')
+    if email in users and password == users[email]['password']:
+        user = User()
+        user.id = email
+        flask_login.login_user(user,remember=True)
+        return redirect(url_for('/'))
+    return """<script>alert('Validation Failed');window.location.replace("https://req-bot.github.io/Validator/");</script>"""
 
 @app.route('/protected')
 @flask_login.login_required

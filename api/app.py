@@ -145,7 +145,6 @@ def sub_redeem(cid, name, acc_mail, code, sheetno):
         acc_data[name]={"Game Name": name, "Gifts/Message": finalme}
 
 def mid_redeem(kk,dataf,acc_mail,code,j):
-    global data
     data[str(j+1)][code] = dict()
     dataf = pd.read_csv(kk[j])
     temp = list(dataf['ID'])
@@ -158,7 +157,6 @@ def mid_redeem(kk,dataf,acc_mail,code,j):
         background_thread.start()
 
 def redeem(code):
-    global data
     global codes
     codes.append(code)
     global acc_data

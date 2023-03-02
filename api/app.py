@@ -111,6 +111,7 @@ codes = []
 old_code = ""
 pi=1
 kk=[]
+logs_data=dict()
 while(os.environ.get('sheet'+str(pi))!=None):
     kk.append(os.environ.get('sheet'+str(pi)))
     pi=pi+1
@@ -144,6 +145,7 @@ def sub_redeem(cid, name, acc_mail, code, sheetno):
         "Game Name": name, "Game ID": cid, "Gifts/Message": finalme}
     if(acc_mail==curr_acc):
         acc_data[name]={"Game Name": name, "Gifts/Message": finalme}
+    logs_data[name]={"Game Name": name, "Gifts/Message": finalme}
 
 def mid_redeem(kk,code,j):
     global total_acc
@@ -159,19 +161,36 @@ def mid_redeem(kk,code,j):
         background_thread.start()
 
 def redeem(code):
+    import datetime
+    import random
+    itime=datetime.datetime.now()
     global codes,data,total_acc
+    total_acc=0
     codes.append(code)
-    global acc_data
+    global acc_data,logs_data
     acc_data=dict()
+    logs_data=dict()
     for j in range(len(kk)):
         data[str(j+1)][code] = dict()
         background_thread = Thread(target=mid_redeem, args=(kk,code,j))
         background_thread.start()
-    while(total_acc!=len(acc_data.keys())):
+    while(total_acc!=len(logs_data.keys()) or total_acc==0 or len(logs_data.keys())==0):
         pass
+    mtime=datetime.datetime.now()
+    difference = mtime - itime
+    total_time=difference
     from discord_webhook import DiscordWebhook, DiscordEmbed
-    webhook = DiscordWebhook(url=os.environ.get("webhook_url"))
-    embed = DiscordEmbed(title='Your Title', description=acc_data, color='03b2f8')
+    imgs=['https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=','https://wallpaperset.com/w/full/1/6/4/125537.jpg','https://hips.hearstapps.com/hmg-prod/images/meadow-in-rocky-mountain-national-park-royalty-free-image-1592402262.jpg','https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg?size=626&ext=jpg&ga=GA1.2.574225619.1677755888&semt=ais','https://thumbs.dreamstime.com/b/nature-panorama-mountain-landscape-sunset-norway-44518447.jpg','https://thumbs.dreamstime.com/b/landscape-nature-mountan-alps-rainbow-76824355.jpg','https://images.hdqwalls.com/download/best-nature-image-1440x900.jpg','https://www.teahub.io/photos/full/13-137210_best-nature-wallpapers-ever-wallpaper-nature-hd.jpg','https://w0.peakpx.com/wallpaper/867/35/HD-wallpaper-best-nature-views-scenery.jpg','https://images.unsplash.com/photo-1610878180933-123728745d22?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FuYWRhJTIwbmF0dXJlfGVufDB8fDB8fA%3D%3D&w=1000&q=80','https://i.natgeofe.com/n/e16c207c-c151-47ea-bbfd-85bafefc19ee/18-iconic-patagonia-torres-del-paine-national-park-chile.jpg?w=636&h=425','https://media.istockphoto.com/id/1350993173/photo/winding-coast-road-in-corsica.jpg?b=1&s=170667a&w=0&k=20&c=ysJU3NQUzj_GgVmwtCVvwa8XzzWPfnF3OSh3i4MxLIQ=']
+    itsmyurl=os.environ.get("webhook_url")
+    webhook = DiscordWebhook(url=itsmyurl)
+    embed = DiscordEmbed(title='Here is Report For You 📝', description="🚀 For Code :- '**{0}**' Redeemption is Successful ✅".format(code), color='03b2f8')
+    embed.set_author(name='Royal 😎', icon_url='https://cdn.pixabay.com/photo/2016/12/28/08/15/hummingbird-1935665__340.png')
+    embed.set_image(url=random.choice(imgs))
+    embed.set_thumbnail(url='https://raw.githubusercontent.com/req-bot/LM-Code-Redeem/master/LionKingLogo.jpg')
+    embed.set_footer(text='Time Taken :- ' + str(total_time.total_seconds()) + " seconds", icon_url='https://png.pngtree.com/element_pic/00/16/09/2057e0eecf792fb.jpg')
+    embed.set_timestamp()
+    for k in logs_data.keys():
+        embed.add_embed_field(name="😎  "+str(k) +"  🤗", value="> "+str(logs_data[k]["Gifts/Message"])+"\n🧿 ~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~ ⛄ ~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~ 🧿", inline=False)
     webhook.add_embed(embed)
     response = webhook.execute()
 

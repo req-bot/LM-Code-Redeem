@@ -121,6 +121,7 @@ print("Data Feeded Successfully...")
 for i in range(len(kk)):
     data[str(i+1)] = dict()
 
+total_acc=0
 
 def sub_redeem(cid, name, acc_mail, code, sheetno):
     global acc_data,data
@@ -145,8 +146,10 @@ def sub_redeem(cid, name, acc_mail, code, sheetno):
         acc_data[name]={"Game Name": name, "Gifts/Message": finalme}
 
 def mid_redeem(kk,code,j):
+    global total_acc
     dataf = pd.read_csv(kk[j])
     temp = list(dataf['ID'])
+    total_acc=total_acc+len(temp)
     names = list(dataf['Game Name'])
     acc_mail=list(dataf['WebID'])
     c = len(temp)
@@ -156,7 +159,7 @@ def mid_redeem(kk,code,j):
         background_thread.start()
 
 def redeem(code):
-    global codes,data
+    global codes,data,total_acc
     codes.append(code)
     global acc_data
     acc_data=dict()
@@ -164,8 +167,13 @@ def redeem(code):
         data[str(j+1)][code] = dict()
         background_thread = Thread(target=mid_redeem, args=(kk,code,j))
         background_thread.start()
-    # return redirect("http://127.0.0.1:5000/sheet-results?sheetno=1", code=302)
-
+    while(total_acc!=len(acc_data.keys())):
+        pass
+    from discord_webhook import DiscordWebhook, DiscordEmbed
+    webhook = DiscordWebhook(url=os.environ.get("webhook_url"))
+    embed = DiscordEmbed(title='Your Title', description=acc_data, color='03b2f8')
+    webhook.add_embed(embed)
+    response = webhook.execute()
 
 @app.route("/", methods=["POST", "GET"])
 @flask_login.login_required

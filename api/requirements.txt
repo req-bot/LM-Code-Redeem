@@ -3,3 +3,4 @@ flask_login
 requests
 pandas
 gunicorn
+discord-webhook

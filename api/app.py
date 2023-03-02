@@ -123,7 +123,7 @@ for i in range(len(kk)):
 
 
 def sub_redeem(cid, name, acc_mail, code, sheetno):
-    global acc_data
+    global acc_data,data
     # print(cid,name,sheetno)
     URL = 'https://lordsmobile.igg.com/project/gifts/ajax.php?game_id=1051029902'
     payload = {
@@ -156,7 +156,7 @@ def mid_redeem(kk,dataf,acc_mail,code,j):
         background_thread.start()
 
 def redeem(code):
-    global codes
+    global codes,data
     codes.append(code)
     global acc_data
     acc_data=dict()

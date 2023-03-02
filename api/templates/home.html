@@ -402,10 +402,10 @@
         }
         function getdata() {
             // setTimeout(function () { yourFunction(); }, 6000);
-            (function fiveSeconds(n) {
+            (function twoSeconds(n) {
                 yourFunction();
                 console.log(n);
-                if (n <= 5) setTimeout(fiveSeconds, 1000, n + 1);
+                if (n <= 5) setTimeout(twoSeconds, 2000, n + 1);
             }(1));
         }
     </script>

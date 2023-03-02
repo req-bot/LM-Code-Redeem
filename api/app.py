@@ -145,7 +145,6 @@ def sub_redeem(cid, name, acc_mail, code, sheetno):
         acc_data[name]={"Game Name": name, "Gifts/Message": finalme}
 
 def mid_redeem(kk,dataf,acc_mail,code,j):
-    data[str(j+1)][code] = dict()
     dataf = pd.read_csv(kk[j])
     temp = list(dataf['ID'])
     names = list(dataf['Game Name'])
@@ -162,6 +161,7 @@ def redeem(code):
     global acc_data
     acc_data=dict()
     for j in range(len(kk)):
+        data[str(j+1)][code] = dict()
         background_thread = Thread(target=mid_redeem, args=(kk,dataf,acc_mail,code,j))
         background_thread.start()
     # return redirect("http://127.0.0.1:5000/sheet-results?sheetno=1", code=302)

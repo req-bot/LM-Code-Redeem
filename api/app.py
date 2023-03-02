@@ -125,7 +125,7 @@ for i in range(len(kk)):
 total_acc=0
 
 def sub_redeem(cid, name, acc_mail, code, sheetno):
-    global acc_data,data
+    global acc_data,data,logs_data
     # print(cid,name,sheetno)
     URL = 'https://lordsmobile.igg.com/project/gifts/ajax.php?game_id=1051029902'
     payload = {
